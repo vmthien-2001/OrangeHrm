@@ -21,6 +21,35 @@ public class login {
         WebElement admin = driver.findElement(By.xpath("//span[text()='Admin']"));
         admin.click();Thread.sleep(2000);
         WebElement add=driver.findElement(By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"));
-        add.click();
+        add.click();Thread.sleep(2000);
+        WebElement user_role = driver.findElement(By.xpath("//label[text()='User Role']//..//..//div[@class='oxd-select-text-input']"));
+        user_role.click();
+        driver.findElement(By.xpath("//div[@role='listbox']//span[text()='Admin']")).click();
+        driver.findElement(By.xpath("//input[@placeholder='Type for hints...']")).sendKeys("o");Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[text()='John Z Ak']")).click();
+
+        WebElement status = driver.findElement(By.xpath("//label[text()='Status']//..//..//div[@class='oxd-select-text-input']"));
+        status.click();
+        driver.findElement(By.xpath("//span[text()='Enabled']")).click();
+
+        WebElement user_name= driver.findElement(By.xpath("//label[text()='Username']//..//..//input[@class='oxd-input oxd-input--active']"));
+        user_name.sendKeys("test01");
+        WebElement password_add= driver.findElement(By.xpath("//label[text()='Password']//..//..//input[@class='oxd-input oxd-input--active']"));
+        password_add.sendKeys("t123456");
+        WebElement confirm_password_add= driver.findElement(By.xpath("//label[text()='Confirm Password']//..//..//input[@class='oxd-input oxd-input--active']"));
+        confirm_password_add.sendKeys("t123456");
+
+        WebElement save = driver.findElement(By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']"));
+        save.click();
+
+
+
+
+
+
+
+
+
+
     }
 }
