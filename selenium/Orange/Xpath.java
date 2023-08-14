@@ -3,22 +3,13 @@ package Orange;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-public class loginPage {
+public class Xpath {
     WebDriver driver = new WebDriver() {
         @Override
         public void get(String s) {
@@ -126,75 +117,23 @@ public class loginPage {
     @FindBy(xpath = "//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']")
     WebElement save_button;
 
+    //log out
+    @FindBy(xpath = "//p[@class='oxd-userdropdown-name']")
+    WebElement name_dropdown;
+    @FindBy(xpath = "//a[text()='Logout']")
+    WebElement logout;
 
-
-    @BeforeClass
-    public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "./bws/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://opensource-demo.orangehrmlive.com/");
-        wait = new WebDriverWait(driver, 10);
-        PageFactory.initElements(driver, this);
-
-    }
-
-    @Test
-    public void testLogin() {
-        wait.until(ExpectedConditions.visibilityOf(input_user));
-        input_user.sendKeys("Admin");
-        input_password.sendKeys("admin123");
-        submit_button.click();
-
-
-
-        PIM_list.click();
-        add_PIM_button.click();
-        firstName_textbox.sendKeys("Vo");
-        middleName_textbox.sendKeys("Minh");
-        lastName_textbox.sendKeys("Thien");
-        saveAddEmployee_button.click();
-
-
-
-
-        admin_list.click();
-        addAdmin_button.click();
-        user_role.click();
-        driver.findElement(By.xpath("//div[@class='oxd-select-wrapper']//span[text()='Admin']")).click();
-
-        employee_name.sendKeys("thien");
-        driver.findElement(By.xpath("//span[text()='Vo Minh Thien']")).click();
-
-        status.click();
-        driver.findElement(By.xpath("//span[text()='Enabled']")).click();
-
-        user_name.sendKeys("test02");
-        password.sendKeys("t123456");
-        confirm_password.sendKeys("t123456");
-
-        save_button.click();
-
-        boolean success = driver.findElement(By.xpath("//div[contains(@class,'oxd-toast-content--success')]")).isDisplayed();
-        Assert.assertTrue(success, "create User Admin fail");
-        System.out.println("create account successfully");
-    }
-
-    /*@Test
-    public void PIM() {
-
-
-    }
-
-    @Test
-    public void admin() {
-
-    }*/
-
-    @AfterClass
-    public void afterClass() {
-        driver.quit();
-    }
-
+    //BUZZ
+    @FindBy(xpath = "//span[text()='Buzz']")
+    WebElement buzz_list;
+    @FindBy(xpath = "//textarea[@class='oxd-buzz-post-input']")
+    WebElement input_post;
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement post_button;
+    @FindBy(xpath = "//div[@data-v-e149abea='']")
+    WebElement like_post;
+    @FindBy(xpath = "//p[text()='new post 2']//..//..//..//i[@class='oxd-icon bi-chat-text-fill']")
+    WebElement comment_post;
+    @FindBy(xpath = "//input[@placeholder='Write your comment...']")
+    WebElement comment_post_textBox;
 }
