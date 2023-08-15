@@ -1,0 +1,43 @@
+package Orange;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.concurrent.TimeUnit;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
+
+public class Before_Affter extends Xpath {
+    @BeforeClass
+    public void beforeClass() {
+        System.setProperty("webdriver.chrome.driver", "./bws/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("https://opensource-demo.orangehrmlive.com/");
+        wait = new WebDriverWait(driver, 10);
+        PageFactory.initElements(driver, this);
+        wait.until(ExpectedConditions.visibilityOf(input_user));
+        input_user.sendKeys("Admin");
+        input_password.sendKeys("admin123");
+        boolean ckeck_button = driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
+        if (ckeck_button) {
+            System.out.println("verify success");
+            submit_button.click();
+        } else {
+            System.out.println("verify fail");
+        }
+
+    }
+
+    @AfterClass
+    public void afterClass() throws InterruptedException {
+        name_dropdown.click();
+        logout.click();
+        Thread.sleep(1000);
+        driver.quit();
+    }
+}

@@ -2,41 +2,40 @@ package Orange;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import java.util.concurrent.TimeUnit;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestCaseOrange extends Xpath {
-    @BeforeClass
-    public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "./bws/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://opensource-demo.orangehrmlive.com/");
-        wait = new WebDriverWait(driver, 10);
-        PageFactory.initElements(driver, this);
-        wait.until(ExpectedConditions.visibilityOf(input_user));
-        input_user.sendKeys("Admin");
-        input_password.sendKeys("admin123");
-        submit_button.click();
-    }
-
+public class TestCaseOrange extends Before_Affter {
     @Test
     public void tc1_add_employee() throws InterruptedException {
-        PIM_list.click();
-        add_PIM_button.click();
+        boolean ckeck_PIM_list = driver.findElement(By.xpath("//span[text()='PIM']")).isDisplayed();
+        if (ckeck_PIM_list) {
+            System.out.println("verify success");
+            PIM_list.click();
+        } else {
+            System.out.println("verify fail");
+        }
+
+        boolean ckeck_PIM_button = driver.findElement(By.xpath("//div[@class='orangehrm-header-container']//button[@type='button']")).isEnabled();
+        if (ckeck_PIM_button) {
+            System.out.println("verify success");
+            add_PIM_button.click();
+        } else {
+            System.out.println("verify fail");
+        }
+
         firstName_textbox.sendKeys("Vo");
         middleName_textbox.sendKeys("Minh");
         lastName_textbox.sendKeys("Thien");
         Thread.sleep(3000);
-        saveAddEmployee_button.click();
+
+        boolean ckeck_saveAddEmployee_button = driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
+        if (ckeck_saveAddEmployee_button) {
+            System.out.println("verify success");
+            saveAddEmployee_button.click();
+        } else {
+            System.out.println("verify fail");
+        }
     }
 
     @Test
@@ -65,33 +64,29 @@ public class TestCaseOrange extends Xpath {
     }
 
     @Test
-    public void tc3_post() throws InterruptedException {
+    public void tc3_post(){
         buzz_list.click();
         input_post.sendKeys("new post 2");
         boolean status = post_button.isEnabled();
-        if (status == true){
+        if (status) {
             post_button.click();
             boolean ckeck_success = driver.findElement(By.xpath("//div[contains(@class,'oxd-toast-content--success')]")).isDisplayed();
             Assert.assertTrue(ckeck_success, "create new post fail");
             System.out.println("create new post successfully");
-        }else {
+        } else {
             System.out.println("create new post fail");
         }
-
-        like_post.click();
-        comment_post.click();
-        comment_post_textBox.sendKeys("good");
-        comment_post_textBox.sendKeys(Keys.RETURN);
-
+        boolean ckeck_like_post = like_post.isEnabled();
+        if (ckeck_like_post) {
+            like_post.click();
+        }
+        boolean ckeck_comment_post = comment_post.isEnabled();
+        if (ckeck_comment_post) {
+            comment_post.click();
+            comment_post_textBox.sendKeys("good");
+            comment_post_textBox.sendKeys(Keys.RETURN);
+        }
     }
 
-
-    @AfterClass
-    public void afterClass() throws InterruptedException {
-        name_dropdown.click();
-        logout.click();
-        Thread.sleep(1000);
-        driver.quit();
-    }
 
 }
