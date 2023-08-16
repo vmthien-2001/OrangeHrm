@@ -10,7 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 
-public class Before_Affter extends Xpath {
+public class Before_Affter extends Xpath_InputData {
     @BeforeClass
     public void beforeClass() {
         System.setProperty("webdriver.chrome.driver", "./bws/chromedriver.exe");

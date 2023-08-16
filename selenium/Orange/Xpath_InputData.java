@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.Set;
 
-public class Xpath {
+public class Xpath_InputData extends ElementVisible {
     WebDriver driver = new WebDriver() {
         @Override
         public void get(String s) {
@@ -76,6 +76,9 @@ public class Xpath {
         }
     };
     WebDriverWait wait = new WebDriverWait(driver, 10);
+    @FindBy(xpath = "//div[contains(@class,'oxd-toast-content--success')]")
+    WebElement notification;
+
     //xpath for login
     @FindBy(xpath = "//input[@name='username']")
     WebElement input_user;
@@ -123,7 +126,7 @@ public class Xpath {
     @FindBy(xpath = "//a[text()='Logout']")
     WebElement logout;
 
-    //BUZZ
+    //xpath for BUZZ
     @FindBy(xpath = "//span[text()='Buzz']")
     WebElement buzz_list;
     @FindBy(xpath = "//textarea[@class='oxd-buzz-post-input']")
@@ -136,4 +139,54 @@ public class Xpath {
     WebElement comment_post;
     @FindBy(xpath = "//input[@placeholder='Write your comment...']")
     WebElement comment_post_textBox;
-}
+
+    @FindBy(xpath = "//span[text()='PIM']")
+    WebElement PIM;
+
+    //xpath for change password
+    @FindBy(xpath = "//div[@class='oxd-input-group oxd-input-field-bottom-space']//input[@class='oxd-input oxd-input--active']")
+    WebElement userName_textbox;
+    @FindBy(xpath = "//div[@class='oxd-table-filter']//button[text()=' Search ']")
+    WebElement search_button;
+    @FindBy(xpath = "//i[@class='oxd-icon bi-pencil-fill']")
+    WebElement editUser;
+    @FindBy(xpath = "//label[text()='Change Password ?']")
+    WebElement changePass_dislay;
+    @FindBy(xpath = "//i[contains(@class,'oxd-checkbox-input')]")
+    WebElement yes_ckeckbox;
+    @FindBy(xpath = "//div[@class='oxd-grid-item oxd-grid-item--gutters user-password-cell']//input[@type='password']")
+    WebElement pass_textbox;
+    @FindBy(xpath = "//div[@class='oxd-grid-item oxd-grid-item--gutters']//input[@type='password']")
+    WebElement passConfirm_textbox;
+    @FindBy(xpath = "//button[text()=' Save ']")
+    WebElement saveChangePass_button;
+
+    String userName = "test03";
+    String pass_first = "t123456";
+    String pass_change="minhthien123";
+    String name = "vo minh thien";
+    public void ckeckNotification(){
+        System.out.println("ckeck notification when add success");
+        isElementVisible(notification);
+        System.out.println("notification is dislayed");
+    }
+    public void input_add_employee() throws InterruptedException {
+        Thread.sleep(5000);
+        firstName_textbox.sendKeys(name.substring(0,2));
+        middleName_textbox.sendKeys(name.substring(3,7));
+        lastName_textbox.sendKeys(name.substring(8));
+    }
+
+    public void input_add_admin(){
+        user_name.sendKeys(userName);
+        password.sendKeys(pass_first);
+        confirm_password.sendKeys(pass_first);
+    }
+
+    public void input_changePass(){
+        pass_textbox.sendKeys(pass_change);
+        passConfirm_textbox.sendKeys(pass_change);
+    }
+    }
+
+

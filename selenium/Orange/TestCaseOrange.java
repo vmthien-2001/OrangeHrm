@@ -5,88 +5,162 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
 public class TestCaseOrange extends Before_Affter {
     @Test
     public void tc1_add_employee() throws InterruptedException {
-        boolean ckeck_PIM_list = driver.findElement(By.xpath("//span[text()='PIM']")).isDisplayed();
-        if (ckeck_PIM_list) {
-            System.out.println("verify success");
-            PIM_list.click();
-        } else {
-            System.out.println("verify fail");
-        }
+        System.out.println("test case 1");
+        System.out.println("ckeck clicking to pim ");
+        isElementVisible(PIM);
+        PIM.click();
+        System.out.println("PIM ele is dislay");
 
-        boolean ckeck_PIM_button = driver.findElement(By.xpath("//div[@class='orangehrm-header-container']//button[@type='button']")).isEnabled();
-        if (ckeck_PIM_button) {
-            System.out.println("verify success");
-            add_PIM_button.click();
-        } else {
-            System.out.println("verify fail");
-        }
+        System.out.println("ckeck add PIM button");
+        isElementVisible2(add_PIM_button);
+        add_PIM_button.click();
+        System.out.println("click pim button success");
 
-        firstName_textbox.sendKeys("Vo");
-        middleName_textbox.sendKeys("Minh");
-        lastName_textbox.sendKeys("Thien");
+        System.out.println("ckeck input add employee");
+        input_add_employee();
         Thread.sleep(3000);
+        System.out.println("input add employee success");
 
-        boolean ckeck_saveAddEmployee_button = driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
-        if (ckeck_saveAddEmployee_button) {
-            System.out.println("verify success");
-            saveAddEmployee_button.click();
-        } else {
-            System.out.println("verify fail");
-        }
+        System.out.println("ckeck saveAddEmployee_button");
+        isElementVisible2(saveAddEmployee_button);
+        saveAddEmployee_button.click();
+        System.out.println("create new employee success");
+
+
+        ckeckNotification();
+        System.out.println("done testcase 1");
+
     }
 
     @Test
     public void tc2_add_admin() {
+        System.out.println("testcase 2");
+        System.out.println("ckeck admin list");
+        isElementVisible(admin_list);
         admin_list.click();
+        System.out.println("click admin list success");
+
+        System.out.println("ckeck addAdmin button");
+        isElementVisible2(addAdmin_button);
         addAdmin_button.click();
+        System.out.println("click admin button success");
+
+        System.out.println("check user role display");
+        isElementVisible(user_role);
         user_role.click();
         driver.findElement(By.xpath("//div[@class='oxd-select-wrapper']//span[text()='Admin']")).click();
+        System.out.println("click admin success");
 
-        employee_name.sendKeys("thien");
+        System.out.println("ckeck employee name dislay");
+        employee_name.sendKeys(name);
         driver.findElement(By.xpath("//span[text()='Vo Minh Thien']")).click();
+        System.out.println("click employee name success");
 
+        System.out.println("ckeck status dislay");
+        isElementVisible(status);
         status.click();
         driver.findElement(By.xpath("//span[text()='Enabled']")).click();
+        System.out.println("click driver success");
 
-        user_name.sendKeys("test01");
-        password.sendKeys("t123456");
-        confirm_password.sendKeys("t123456");
 
+        System.out.println("ckeck input add admin");
+        input_add_admin();
+        System.out.println("input add admin success");
+
+
+
+        System.out.println("ckeck save_button");
+        isElementVisible2(save_button);
         save_button.click();
-
-        boolean success = driver.findElement(By.xpath("//div[contains(@class,'oxd-toast-content--success')]")).isDisplayed();
-        Assert.assertTrue(success, "create User Admin fail");
-
         System.out.println("create account successfully");
+        ckeckNotification();
+
+        System.out.println("done testcase 2");
     }
 
     @Test
-    public void tc3_post(){
+    public void tc3_post() throws InterruptedException {
+        System.out.println("testcase 3");
+        System.out.println("ckeck buzz list");
+        isElementVisible(buzz_list);
         buzz_list.click();
+        System.out.println("click buzz list success");
+
+        System.out.println("ckeck input post dislay");
+        isElementVisible(input_post);
         input_post.sendKeys("new post 2");
-        boolean status = post_button.isEnabled();
-        if (status) {
-            post_button.click();
-            boolean ckeck_success = driver.findElement(By.xpath("//div[contains(@class,'oxd-toast-content--success')]")).isDisplayed();
-            Assert.assertTrue(ckeck_success, "create new post fail");
-            System.out.println("create new post successfully");
-        } else {
-            System.out.println("create new post fail");
-        }
-        boolean ckeck_like_post = like_post.isEnabled();
-        if (ckeck_like_post) {
-            like_post.click();
-        }
-        boolean ckeck_comment_post = comment_post.isEnabled();
-        if (ckeck_comment_post) {
-            comment_post.click();
-            comment_post_textBox.sendKeys("good");
-            comment_post_textBox.sendKeys(Keys.RETURN);
-        }
+        System.out.println("input post success");
+
+        System.out.println("ckeck post button");
+        isElementVisible2(post_button);
+        post_button.click();
+        System.out.println("click post button and create new post success");
+
+
+        System.out.println("ckeck like_post button");
+        isElementVisible(like_post);
+        like_post.click();
+        System.out.println("like post success");
+
+        System.out.println("ckeck comment post dislay");
+        isElementVisible(comment_post);
+        comment_post.click();
+        comment_post_textBox.sendKeys("good");
+        comment_post_textBox.sendKeys(Keys.RETURN);
+        System.out.println("comment post success");
+
+
+        ckeckNotification();Thread.sleep(3000);
+        System.out.println("done testcase 3");
+
+
+
     }
 
+    @Test
+    public void tc4_changePassword(){
+        System.out.println("testcase 4");
+        System.out.println("ckeck admin list");
+        isElementVisible(admin_list);
+        admin_list.click();
+        System.out.println("click admin list success");
 
+        System.out.println("ckeck user_name textbox dislay");
+        isElementVisible(userName_textbox);
+        userName_textbox.sendKeys(userName);
+        System.out.println("input user_name success");
+
+        System.out.println("ckeck search button");
+        isElementVisible2(search_button);
+        search_button.click();
+        System.out.println("click search button success");
+
+        System.out.println("ckeck edit user");
+        isElementVisible2(editUser);
+        editUser.click();
+        System.out.println("click edit user success");
+        ckeckNotification();
+
+        System.out.println("ckeck yes_ckeckbox");
+        isElementVisible3(yes_ckeckbox);
+        yes_ckeckbox.click();
+        System.out.println("ckeck yes_ckeckbox success");
+
+        System.out.println("ckeck input change pass");
+        input_changePass();
+        System.out.println("input change pass success");
+
+        System.out.println("ckeck save change pass button");
+        saveChangePass_button.click();
+        System.out.println("click save change pass success");
+
+        ckeckNotification();
+        System.out.println("done testcase 4");
+
+
+    }
 }
