@@ -126,4 +126,23 @@ public class TestCaseOrange extends Before_Affter {
 
 
     }
-}
+
+    @Test
+    public void tc5_delete_account() throws InterruptedException {
+
+        logout();login(userName_DF,pass_DF);Thread.sleep(1000);
+        admin_list.click();
+        try{
+            System.out.println("check clicking to textbox username");
+            username_textbox.sendKeys(userName);
+            searchAdmin_button.click();
+            System.out.println("textbox username is displayed");
+            driver.findElement(By.xpath("//div[text()='"+userName+"']//..//..//i[@class='oxd-icon bi-trash']")).click();
+            driver.findElement(By.xpath("//i[@class='oxd-icon bi-trash oxd-button-icon']")).click();
+            System.out.println("delete account success");
+       }catch (NoSuchElementException e){
+            System.out.println("Can't find the account to delete");
+        }
+
+
+}}

@@ -123,6 +123,10 @@ public class Xpath_InputData extends ElementVisible {
     WebElement confirm_password;
     @FindBy(xpath = "//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']")
     WebElement save_button;
+    @FindBy(xpath = "//label[text()='Username']//..//..//input[contains(@class,'oxd-input--active')]")
+    WebElement username_textbox;
+    @FindBy(xpath = "//button[text()=' Search ']")
+    WebElement searchAdmin_button;
 
     //log out
     @FindBy(xpath = "//p[@class='oxd-userdropdown-name']")
