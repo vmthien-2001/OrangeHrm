@@ -75,7 +75,7 @@ public class TestCaseOrange extends Before_Affter {
         comment_post_textBox.sendKeys(Keys.RETURN);
         System.out.println("comment post is displayed");
 
-        ckeckNotification();
+        checkNotification();
         Thread.sleep(3000);
         System.out.println("done testcase 3");
 
@@ -104,7 +104,7 @@ public class TestCaseOrange extends Before_Affter {
         driver.findElement(By.xpath("//div[text()='" + userName +
                 "']//..//..//i[@class='oxd-icon bi-pencil-fill']")).click();
         System.out.println("edit user is displayed");
-        ckeckNotification();
+        checkNotification();
 
         System.out.println("check clicking to yes_checkbox");
         isElementVisible3(yes_checkbox);
@@ -119,7 +119,7 @@ public class TestCaseOrange extends Before_Affter {
         saveChangePass_button.click();
         System.out.println("save change pass button is displayed");
 
-        ckeckNotification();
+        checkNotification();
         logout();
         login(userName,pass_change);
         System.out.println("done testcase 4");

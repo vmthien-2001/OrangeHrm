@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class Xpath_InputData extends ElementVisible {
@@ -100,6 +101,8 @@ public class Xpath_InputData extends ElementVisible {
     WebElement lastName_textbox;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement saveAddEmployee_button;
+    @FindBy(xpath = "//div[@class='oxd-input-group oxd-input-field-bottom-space']//input[@class='oxd-input oxd-input--active']")
+    WebElement id_employee;
 
     //xpath for admin
     @FindBy(xpath = "//span[text()='Admin']")
@@ -169,10 +172,15 @@ public class Xpath_InputData extends ElementVisible {
 
 
 
-    String userName = "test1";
+    String userName = "test11";
     String pass_first = "t123456";
     String pass_change="minhthien123";
     String name = "vo minh thien";
+    Random random = new Random();
+
+    int id = random.nextInt(5000,10000);
+
+
 
     String userName_DF="Admin";
     String pass_DF ="admin123";
@@ -191,7 +199,7 @@ public class Xpath_InputData extends ElementVisible {
         Thread.sleep(1000);
     }
 
-    public void ckeckNotification(){
+    public void checkNotification(){
         System.out.println("check notification when add success");
         isElementVisible(notification);
         System.out.println("notification is displayed");
@@ -227,6 +235,8 @@ public class Xpath_InputData extends ElementVisible {
 
         System.out.println("check clicking add employee");
         input_add_employee();
+        id_employee.clear();
+        id_employee.sendKeys(String.valueOf(id));
         Thread.sleep(3000);
         System.out.println("add employee displayed");
 
@@ -236,7 +246,7 @@ public class Xpath_InputData extends ElementVisible {
         System.out.println("employee success is displayed");
 
 
-        ckeckNotification();
+        checkNotification();
     }
     public void create_newAdmin(){
         System.out.println("check clicking to admin list");
@@ -277,7 +287,7 @@ public class Xpath_InputData extends ElementVisible {
         save_button.click();
         System.out.println("save button is displayed");
 
-        ckeckNotification();
+        checkNotification();
 
     }
 
