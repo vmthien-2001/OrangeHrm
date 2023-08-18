@@ -21,23 +21,13 @@ public class Before_Affter extends Xpath_InputData {
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
         wait.until(ExpectedConditions.visibilityOf(input_user));
-        input_user.sendKeys("Admin");
-        input_password.sendKeys("admin123");
-        boolean ckeck_button = driver.findElement(By.xpath("//button[@type='submit']")).isEnabled();
-        if (ckeck_button) {
-            System.out.println("verify success");
-            submit_button.click();
-        } else {
-            System.out.println("verify fail");
-        }
+        login(userName_DF,pass_DF);
 
     }
 
     @AfterClass
     public void afterClass() throws InterruptedException {
-        name_dropdown.click();
-        logout.click();
-        Thread.sleep(1000);
-        driver.quit();
+       logout();
+       driver.quit();
     }
 }

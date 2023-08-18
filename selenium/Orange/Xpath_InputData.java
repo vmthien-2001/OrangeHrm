@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.Set;
@@ -148,12 +149,12 @@ public class Xpath_InputData extends ElementVisible {
     WebElement userName_textbox;
     @FindBy(xpath = "//div[@class='oxd-table-filter']//button[text()=' Search ']")
     WebElement search_button;
-    @FindBy(xpath = "//i[@class='oxd-icon bi-pencil-fill']")
+    /*@FindBy(xpath = "")
     WebElement editUser;
     @FindBy(xpath = "//label[text()='Change Password ?']")
-    WebElement changePass_dislay;
+    WebElement changePass_dislay;*/
     @FindBy(xpath = "//i[contains(@class,'oxd-checkbox-input')]")
-    WebElement yes_ckeckbox;
+    WebElement yes_checkbox;
     @FindBy(xpath = "//div[@class='oxd-grid-item oxd-grid-item--gutters user-password-cell']//input[@type='password']")
     WebElement pass_textbox;
     @FindBy(xpath = "//div[@class='oxd-grid-item oxd-grid-item--gutters']//input[@type='password']")
@@ -161,14 +162,39 @@ public class Xpath_InputData extends ElementVisible {
     @FindBy(xpath = "//button[text()=' Save ']")
     WebElement saveChangePass_button;
 
-    String userName = "test03";
+    //xpath tc2
+    @FindBy(xpath = "//label[text()='Employee Name']//..//..//input[@placeholder='Type for hints...']")
+    WebElement employeeName_textbox;
+
+
+
+
+    String userName = "test1";
     String pass_first = "t123456";
     String pass_change="minhthien123";
     String name = "vo minh thien";
+
+    String userName_DF="Admin";
+    String pass_DF ="admin123";
+
+    public void login(String username, String password){
+        input_user.sendKeys(username);
+        input_password.sendKeys(password);
+        System.out.println("check if the login button is visible");
+        isElementVisible2(submit_button);
+        submit_button.click();
+        System.out.println("click button login success");
+    }
+    public void logout() throws InterruptedException {
+        name_dropdown.click();
+        logout.click();
+        Thread.sleep(1000);
+    }
+
     public void ckeckNotification(){
-        System.out.println("ckeck notification when add success");
+        System.out.println("check notification when add success");
         isElementVisible(notification);
-        System.out.println("notification is dislayed");
+        System.out.println("notification is displayed");
     }
     public void input_add_employee() throws InterruptedException {
         Thread.sleep(5000);
@@ -187,6 +213,77 @@ public class Xpath_InputData extends ElementVisible {
         pass_textbox.sendKeys(pass_change);
         passConfirm_textbox.sendKeys(pass_change);
     }
+
+    public void addEmployee() throws InterruptedException {
+        System.out.println("check clicking to pim ");
+        isElementVisible(PIM);
+        PIM.click();
+        System.out.println("PIM ele is displayed");
+
+        System.out.println("check clicking add PIM button");
+        isElementVisible2(add_PIM_button);
+        add_PIM_button.click();
+        System.out.println("pim button displayed");
+
+        System.out.println("check clicking add employee");
+        input_add_employee();
+        Thread.sleep(3000);
+        System.out.println("add employee displayed");
+
+        System.out.println("check clicking saveAddEmployee_button");
+        isElementVisible2(saveAddEmployee_button);
+        saveAddEmployee_button.click();
+        System.out.println("employee success is displayed");
+
+
+        ckeckNotification();
+    }
+    public void create_newAdmin(){
+        System.out.println("check clicking to admin list");
+        isElementVisible(admin_list);
+        admin_list.click();
+        System.out.println("admin list is displayed");
+
+        System.out.println("check clicking to addAdmin button");
+        isElementVisible2(addAdmin_button);
+        addAdmin_button.click();
+        System.out.println("admin button is displayed");
+
+        System.out.println("check clicking to user role");
+        isElementVisible(user_role);
+        user_role.click();
+        driver.findElement(By.xpath("//div[@class='oxd-select-wrapper']//span[text()='Admin']")).click();
+        System.out.println("user role is displayed");
+
+        System.out.println("check input to employee name ");
+        employee_name.sendKeys(name);
+        driver.findElement(By.xpath("//span[text()='vo minh thien']")).click();
+        System.out.println("employee name is displayed");
+
+        System.out.println("check clicking to status ");
+        isElementVisible(status);
+        status.click();
+        driver.findElement(By.xpath("//span[text()='Enabled']")).click();
+        System.out.println("click status is displayed");
+
+
+        System.out.println("check input to add admin");
+        input_add_admin();
+        System.out.println("input add admin success");
+
+
+        System.out.println("check clicking to save_button");
+        isElementVisible2(save_button);
+        save_button.click();
+        System.out.println("save button is displayed");
+
+        ckeckNotification();
+
+    }
+
+
+
+
     }
 
 
