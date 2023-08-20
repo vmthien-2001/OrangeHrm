@@ -30,12 +30,12 @@ public class TestCaseOrange extends Before_Affter {
 
         System.out.println("check that after entering the name, the name just entered is displayed");
         try {
-            boolean check =driver.findElement(By.xpath("//span[text()='"+name+"']")).isDisplayed();
-            if (check){
+            boolean check = driver.findElement(By.xpath("//span[text()='" + name + "']")).isDisplayed();
+            if (check) {
                 create_newAdmin();
                 System.out.println("done testcase 2");
             }
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             addEmployee();
             create_newAdmin();
             System.out.println("done testcase 2");
@@ -121,7 +121,7 @@ public class TestCaseOrange extends Before_Affter {
 
         checkNotification();
         logout();
-        login(userName,pass_change);
+        login(userName, pass_change);
         System.out.println("done testcase 4");
 
 
@@ -129,20 +129,23 @@ public class TestCaseOrange extends Before_Affter {
 
     @Test
     public void tc5_delete_account() throws InterruptedException {
-
-        logout();login(userName_DF,pass_DF);Thread.sleep(1000);
+        System.out.println("testcase 5");
+        logout();
+        login(userName_DF, pass_DF);
+        Thread.sleep(1000);
         admin_list.click();
-        try{
+        try {
             System.out.println("check clicking to textbox username");
             username_textbox.sendKeys(userName);
             searchAdmin_button.click();
             System.out.println("textbox username is displayed");
-            driver.findElement(By.xpath("//div[text()='"+userName+"']//..//..//i[@class='oxd-icon bi-trash']")).click();
+            driver.findElement(By.xpath("//div[text()='" + userName + "']//..//..//i[@class='oxd-icon bi-trash']")).click();
             driver.findElement(By.xpath("//i[@class='oxd-icon bi-trash oxd-button-icon']")).click();
             System.out.println("delete account success");
-       }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Can't find the account to delete");
         }
+        System.out.println("done testcase 5");
 
-
-}}
+    }
+}
