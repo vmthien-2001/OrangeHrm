@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -174,22 +173,19 @@ public class Xpath_InputData extends ElementVisible {
     WebElement employeeName_textbox;
 
 
-
-
     String userName = "test20";
     String pass_first = "t123456";
-    String pass_change="minhthien123";
+    String pass_change = "minhthien123";
     String name = "vo minh thien";
     Random random = new Random();
 
-    int id = random.nextInt(5000,10000);
+    int id = random.nextInt(5000, 10000);
 
 
+    String userName_DF = "Admin";
+    String pass_DF = "admin123";
 
-    String userName_DF="Admin";
-    String pass_DF ="admin123";
-
-    public void login(String username, String password){
+    public void login(String username, String password) {
         input_user.sendKeys(username);
         input_password.sendKeys(password);
         System.out.println("check if the login button is visible");
@@ -197,107 +193,95 @@ public class Xpath_InputData extends ElementVisible {
         submit_button.click();
         System.out.println("click button login success");
     }
+
     public void logout() throws InterruptedException {
         name_dropdown.click();
         logout.click();
         Thread.sleep(1000);
     }
 
-    public void checkNotification(){
+    public void checkNotification() {
         System.out.println("check notification when add success");
         isElementVisible(notification);
         System.out.println("notification is displayed");
     }
+
     public void input_add_employee() throws InterruptedException {
         Thread.sleep(5000);
-        firstName_textbox.sendKeys(name.substring(0,2));
-        middleName_textbox.sendKeys(name.substring(3,7));
+        firstName_textbox.sendKeys(name.substring(0, 2));
+        middleName_textbox.sendKeys(name.substring(3, 7));
         lastName_textbox.sendKeys(name.substring(8));
     }
 
-    public void input_add_admin(){
+    public void input_add_admin() {
         user_name.sendKeys(userName);
         password.sendKeys(pass_first);
         confirm_password.sendKeys(pass_first);
     }
 
-    public void input_changePass(){
+    public void input_changePass() {
         pass_textbox.sendKeys(pass_change);
         passConfirm_textbox.sendKeys(pass_change);
     }
 
     public void addEmployee() throws InterruptedException {
-        System.out.println("check clicking to pim ");
         isElementVisible(PIM);
         PIM.click();
-        System.out.println("PIM ele is displayed");
 
-        System.out.println("check clicking add PIM button");
         isElementVisible2(add_PIM_button);
         add_PIM_button.click();
-        System.out.println("pim button displayed");
 
-        System.out.println("check clicking add employee");
         input_add_employee();
         id_employee.clear();
         id_employee.sendKeys(String.valueOf(id));
         Thread.sleep(3000);
-        System.out.println("add employee displayed");
 
-        System.out.println("check clicking saveAddEmployee_button");
         isElementVisible2(saveAddEmployee_button);
         saveAddEmployee_button.click();
-        System.out.println("employee success is displayed");
-
 
         checkNotification();
     }
-    public void create_newAdmin(){
-        System.out.println("check clicking to admin list");
+
+    public void create_newAdmin() {
+
         isElementVisible(admin_list);
         admin_list.click();
-        System.out.println("admin list is displayed");
 
-        System.out.println("check clicking to addAdmin button");
         isElementVisible2(addAdmin_button);
         addAdmin_button.click();
-        System.out.println("admin button is displayed");
 
-        System.out.println("check clicking to user role");
         isElementVisible(user_role);
         user_role.click();
         driver.findElement(By.xpath("//div[@class='oxd-select-wrapper']//span[text()='Admin']")).click();
-        System.out.println("user role is displayed");
 
-        System.out.println("check input to employee name ");
         employee_name.sendKeys(name);
         driver.findElement(By.xpath("//span[text()='vo minh thien']")).click();
-        System.out.println("employee name is displayed");
 
-        System.out.println("check clicking to status ");
+
         isElementVisible(status);
         status.click();
         driver.findElement(By.xpath("//span[text()='Enabled']")).click();
-        System.out.println("click status is displayed");
 
-
-        System.out.println("check input to add admin");
         input_add_admin();
-        System.out.println("input add admin success");
 
 
-        System.out.println("check clicking to save_button");
         isElementVisible2(save_button);
         save_button.click();
-        System.out.println("save button is displayed");
 
         checkNotification();
 
     }
 
-
-
-
+    public void inputEmployee() {
+        PIM.click();
+        employeeName_textbox.click();
+        employeeName_textbox.sendKeys(name);
     }
+}
+
+   /* public void checkEmployee() throws InterruptedException {
+
+
+}*/
 
 
