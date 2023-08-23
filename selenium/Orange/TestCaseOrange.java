@@ -1,18 +1,14 @@
 package Orange;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 public class TestCaseOrange extends Before_Affter {
     @Test
-    public void tc1_add_employee() throws InterruptedException {
+    public void tc1_AddEmployee() throws InterruptedException {
         navigateToPIMTab();
         searchEmployee();
-        if (checkTheEmployeeIsExist()){
+        if (checkTheUserIsExist()) {
             deleteEmployee();
             addEmployee();
         }else {
@@ -20,7 +16,7 @@ public class TestCaseOrange extends Before_Affter {
         }
         navigateToPIMTab();
         searchEmployee();
-        if (checkTheEmployeeIsExist()){
+        if (checkTheUserIsExist()) {
             System.out.println("create new employee success");
         }else {
             System.out.println("create new employee fail");
@@ -28,103 +24,77 @@ public class TestCaseOrange extends Before_Affter {
     }
 
     @Test
-    public void tc2_add_admin() throws InterruptedException {
-        System.out.println("testcase 2");
-       // inputEmployee();
-        System.out.println("check that after entering the name, the name just entered is displayed");
-        try {
-            boolean check = driver.findElement(By.xpath("//span[text()='" + name + "']")).isDisplayed();
-            if (check) {
-                create_newAdmin();
-                System.out.println("done testcase 2");
+    public void tc2_AddAdmin() throws InterruptedException {
+        navigateToAdminTab();
+        searchAdminUser();
+        if(checkTheUserIsExist())
+        {
+            System.out.println("Admin user is existed, will delete");
+            deleteUser();
+            checkEmployeeExist();
+        }else{
+            checkEmployeeExist();
+        }
+        System.out.println("verify User admin created -- start");
+        logout();
+        isAdminUserCreated();
+        System.out.println("verify User admin created -- success");
+    }
+
+    @Test
+    public void tc3_changePassword() throws InterruptedException {
+        navigateToAdminTab();
+        searchAdminUser();
+        if (checkTheUserIsExist()) {
+            System.out.println("the user is existed, will change the password");
+            editUser();
+            changePass();
+        } else {
+            System.out.println("the user is not existed, create user admin");
+            tc2_AddAdmin();
+            navigateToAdminTab();
+            searchAdminUser();
+            editUser();
+            changePass();
+        }
+        System.out.println("verify User changed pass -- start");
+        logout();
+        isUserChangedPasswordSuccess();
+        System.out.println("verify User changed pass -- success");
+    }
+
+    @Test
+    public void tc4_deleteUser() throws InterruptedException {
+        navigateToAdminTab();
+        searchAdminUser();
+        if(checkTheUserIsExist())
+        {
+            System.out.println("Admin user is existed, will delete");
+            deleteUser();
+        }else{
+            navigateToAdminTab();
+            searchAdminUser();
+            if(checkTheUserIsExist())
+            {
+                System.out.println("Admin user is existed, will delete");
+                deleteUser();
+                checkEmployeeExist();
+            }else{
+                checkEmployeeExist();
             }
-        } catch (NoSuchElementException e) {
-            addEmployee();
-            create_newAdmin();
-            System.out.println("done testcase 2");
+            System.out.println("verify User admin created -- start");
+            logout();
+            isAdminUserCreated();
+            System.out.println("verify User admin created -- success");
+            logout();
+            login(userName_DF,pass_DF);
+            navigateToAdminTab();
+            checkTheUserIsExist();
+            deleteUser();
         }
-
-    }
-
-    @Test
-    public void tc3_post() throws InterruptedException {
-        System.out.println("testcase 3");
-        isElementVisible(buzz_list);
-        buzz_list.click();
-
-        isElementVisible(input_post);
-        input_post.sendKeys("new post 2");
-
-        isElementEnableToBeClick(post_button);
-        post_button.click();
-
-
-        isElementVisible(like_post);
-        like_post.click();
-
-
-        isElementVisible(comment_post);
-        comment_post.click();
-        comment_post_textBox.sendKeys("good");
-        comment_post_textBox.sendKeys(Keys.RETURN);
-
-        checkNotification();
-        Thread.sleep(3000);
-        System.out.println("done testcase 3");
-
-
-    }
-
-    @Test
-    public void tc4_changePassword() throws InterruptedException {
-        System.out.println("testcase 4");
-
-        isElementVisible(admin_list);
-        admin_list.click();
-
-        isElementVisible(userName_textbox);
-        userName_textbox.sendKeys(userName);
-
-        isElementEnableToBeClick(search_button);
-        search_button.click();
-
-        System.out.println("check clicking to edit user");
-        driver.findElement(By.xpath("//div[text()='" + userName +
-                "']//..//..//i[@class='oxd-icon bi-pencil-fill']")).click();
-        System.out.println("edit user is displayed");
-        checkNotification();
-
-        isElementVisible3(yes_checkbox);
-        yes_checkbox.click();
-
-        input_changePass();
-        saveChangePass_button.click();
-
-        checkNotification();
-        logout();
-        login(userName, pass_change);
-        System.out.println("done testcase 4");
-    }
-
-    @Test
-    public void tc5_delete_account() throws InterruptedException {
-        System.out.println("testcase 5");
-        logout();
-        login(userName_DF, pass_DF);
-        Thread.sleep(1000);
-        admin_list.click();
-        try {
-            System.out.println("check clicking to textbox username");
-            username_textbox.sendKeys(userName);
-            searchAdmin_button.click();
-            System.out.println("textbox username is displayed");
-            driver.findElement(By.xpath("//div[text()='" + userName + "']//..//..//i[@class='oxd-icon bi-trash']")).click();
-            driver.findElement(By.xpath("//i[@class='oxd-icon bi-trash oxd-button-icon']")).click();
-            System.out.println("delete account success");
-        } catch (NoSuchElementException e) {
-            System.out.println("Can't find the account to delete");
-        }
-        System.out.println("done testcase 5");
-
+        System.out.println("verify User delete -- start");
+        logout();login(userName_DF,pass_DF);
+        navigateToAdminTab();checkTheUserIsExist();
+        System.out.println("verify User delete -- success");
     }
 }

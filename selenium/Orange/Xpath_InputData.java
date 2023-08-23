@@ -105,7 +105,7 @@ public class Xpath_InputData extends ElementVisible {
 
     //xpath for admin
     @FindBy(xpath = "//span[text()='Admin']")
-    WebElement admin_list;
+    WebElement adminTab;
     @FindBy(xpath = "//button[@class='oxd-button oxd-button--medium oxd-button--secondary']")
     WebElement addAdmin_button;
     @FindBy(xpath = "//label[text()='User Role']//..//..//div[@class='oxd-select-text-input']")
@@ -169,11 +169,13 @@ public class Xpath_InputData extends ElementVisible {
     @FindBy(xpath = "//label[text()='Employee Name']//..//..//input[@placeholder='Type for hints...']")
     WebElement employeeName_textbox;
     @FindBy(xpath = "//div[@class='oxd-table-card']//div[contains(@class,'oxd-table-row')]")
-    WebElement employeeCard;
+    WebElement userCard;
     @FindBy(xpath = "//i[contains(@class,'bi-trash')]")
     WebElement deleteButton;
     @FindBy(xpath = "//button[contains(.,' Yes, Delete ')]")
     WebElement confirmDeleteButton;
+    @FindBy(xpath = "//i[contains(@class,'bi-pencil-fill')]")
+    WebElement editButton;
 
 
     String userName = "test20";
@@ -181,9 +183,6 @@ public class Xpath_InputData extends ElementVisible {
     String pass_change = "minhthien123";
     String name = "vo minh thien";
     Random random = new Random();
-
-    int id = random.nextInt(5000, 10000);
-
 
     String userName_DF = "Admin";
     String pass_DF = "admin123";
@@ -216,7 +215,7 @@ public class Xpath_InputData extends ElementVisible {
         middleName_textbox.sendKeys(name.substring(3, 7));
         lastName_textbox.sendKeys(name.substring(8));
         id_employee.clear();
-        id_employee.sendKeys(String.valueOf(id));
+//        id_employee.sendKeys(String.valueOf(id));
 
     }
 
@@ -227,6 +226,7 @@ public class Xpath_InputData extends ElementVisible {
     }
 
     public void input_changePass() {
+        isElementEnableToBeClick(pass_textbox);
         pass_textbox.sendKeys(pass_change);
         passConfirm_textbox.sendKeys(pass_change);
     }
@@ -240,37 +240,36 @@ public class Xpath_InputData extends ElementVisible {
     }
 
     public void create_newAdmin() {
-
-        isElementVisible(admin_list);
-        admin_list.click();
-
         isElementEnableToBeClick(addAdmin_button);
         addAdmin_button.click();
-
-        isElementVisible(user_role);
+        isElementEnableToBeClick(user_role);
         user_role.click();
         driver.findElement(By.xpath("//div[@class='oxd-select-wrapper']//span[text()='Admin']")).click();
-
         employee_name.sendKeys(name);
         driver.findElement(By.xpath("//span[text()='vo minh thien']")).click();
-
-
-        isElementVisible(status);
+        isElementEnableToBeClick(status);
         status.click();
         driver.findElement(By.xpath("//span[text()='Enabled']")).click();
-
         input_add_admin();
-
-
         isElementEnableToBeClick(save_button);
         save_button.click();
-
         checkNotification();
-
     }
 
-    public boolean checkTheEmployeeIsExist() {
-        if ( isElementVisible(employeeCard)){
+    public void isAdminUserCreated() {
+        login(userName,pass_first);
+        isElementVisible(adminTab);
+        System.out.println("user admin is created");
+    }
+    public void isUserChangedPasswordSuccess() {
+        login(userName,pass_change);
+        isElementVisible(adminTab);
+        System.out.println("user password is changed-- success");
+    }
+
+
+    public boolean checkTheUserIsExist() {
+        if ( isElementVisible(userCard)){
             System.out.println("employee is existed");
             return true;
         }else {
@@ -286,15 +285,47 @@ public class Xpath_InputData extends ElementVisible {
         PIM.click();
         System.out.println("navigate to PIM tab - success");
     }
-    public void  deleteEmployee() throws InterruptedException {
-        System.out.println("Delete employee");
+
+    public void navigateToAdminTab() {
+        System.out.println("navigate to Admin tab");
+        isElementVisible(adminTab);
+        adminTab.click();
+        System.out.println("navigate to admin tab - success");
+    }
+
+    public void  deleteUser() throws InterruptedException {
+        System.out.println("Delete User");
         isElementVisible(deleteButton);
         deleteButton.click();
         confirmDeleteButton.click();
         System.out.println();
         Thread.sleep(2000);
     }
-    public void  searchEmployee() throws InterruptedException {
+    public void  deleteEmployee() throws InterruptedException {
+        System.out.println("Delete Employee");
+        isElementVisible(deleteButton);
+        deleteButton.click();
+        confirmDeleteButton.click();
+        System.out.println();
+        Thread.sleep(2000);
+    }
+    public void  editUser() throws InterruptedException {
+        System.out.println("Edit User ");
+        isElementEnableToBeClick(editButton);
+        editButton.click();
+
+    }
+    public void  changePass() throws InterruptedException {
+        isElementEnableToBeClick(yes_checkbox);
+        yes_checkbox.click();
+        input_changePass();
+        Thread.sleep(2000);
+        isElementEnableToBeClick(save_button);
+        save_button.click();
+        System.out.println("complete change");
+        Thread.sleep(2000);
+    }
+    public void searchEmployee() throws InterruptedException {
         System.out.println("search employee ");
         isElementEnableToBeClick(employeeName_textbox);
         employeeName_textbox.click();
@@ -302,8 +333,31 @@ public class Xpath_InputData extends ElementVisible {
         employeeName_textbox.sendKeys(name);
         Thread.sleep(2000);
         search_button.click();
+        Thread.sleep(2000);
+
+    }
+    public void  searchAdminUser() throws InterruptedException {
+        System.out.println("search admin ");
+        userName_textbox.clear();
+        userName_textbox.sendKeys(userName);
+        Thread.sleep(2000);
+        search_button.click();
         Thread.sleep(5000);
 
+    }
+    public  void  checkEmployeeExist() throws InterruptedException {
+        navigateToPIMTab();
+        searchEmployee();
+        if (checkTheUserIsExist()) {
+            System.out.println("the employee is existed, will create new admin");
+            navigateToAdminTab();
+            create_newAdmin();
+        } else {
+            System.out.println("the employee isn't existed, will create new employee");
+            addEmployee();
+            navigateToAdminTab();
+            create_newAdmin();
+    }
     }
 
 }
