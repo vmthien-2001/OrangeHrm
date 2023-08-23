@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeClass;
 public class Before_Affter extends Xpath_InputData {
     @BeforeClass
     public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "./bws/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "./bws/chromedriver2.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();

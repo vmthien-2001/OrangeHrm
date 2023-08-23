@@ -91,7 +91,7 @@ public class Xpath_InputData extends ElementVisible {
     @FindBy(xpath = "//span[text()='PIM']")
     WebElement PIM_list;
     @FindBy(xpath = "//div[@class='orangehrm-header-container']//button[@type='button']")
-    WebElement add_PIM_button;
+    WebElement addEmployeeButton;
     @FindBy(xpath = "//input[@name='firstName']")
     WebElement firstName_textbox;
     @FindBy(xpath = "//input[@name='middleName']")
@@ -155,10 +155,7 @@ public class Xpath_InputData extends ElementVisible {
     WebElement userName_textbox;
     @FindBy(xpath = "//div[@class='oxd-table-filter']//button[text()=' Search ']")
     WebElement search_button;
-    /*@FindBy(xpath = "")
-    WebElement editUser;
-    @FindBy(xpath = "//label[text()='Change Password ?']")
-    WebElement changePass_dislay;*/
+
     @FindBy(xpath = "//i[contains(@class,'oxd-checkbox-input')]")
     WebElement yes_checkbox;
     @FindBy(xpath = "//div[@class='oxd-grid-item oxd-grid-item--gutters user-password-cell']//input[@type='password']")
@@ -171,6 +168,12 @@ public class Xpath_InputData extends ElementVisible {
     //xpath tc2
     @FindBy(xpath = "//label[text()='Employee Name']//..//..//input[@placeholder='Type for hints...']")
     WebElement employeeName_textbox;
+    @FindBy(xpath = "//div[@class='oxd-table-card']//div[contains(@class,'oxd-table-row')]")
+    WebElement employeeCard;
+    @FindBy(xpath = "//i[contains(@class,'bi-trash')]")
+    WebElement deleteButton;
+    @FindBy(xpath = "//button[contains(.,' Yes, Delete ')]")
+    WebElement confirmDeleteButton;
 
 
     String userName = "test20";
@@ -189,7 +192,7 @@ public class Xpath_InputData extends ElementVisible {
         input_user.sendKeys(username);
         input_password.sendKeys(password);
         System.out.println("check if the login button is visible");
-        isElementVisible2(submit_button);
+        isElementEnableToBeClick(submit_button);
         submit_button.click();
         System.out.println("click button login success");
     }
@@ -207,10 +210,14 @@ public class Xpath_InputData extends ElementVisible {
     }
 
     public void input_add_employee() throws InterruptedException {
-        Thread.sleep(5000);
+        System.out.println("input employee name and id");
+        Thread.sleep(1000);
         firstName_textbox.sendKeys(name.substring(0, 2));
         middleName_textbox.sendKeys(name.substring(3, 7));
         lastName_textbox.sendKeys(name.substring(8));
+        id_employee.clear();
+        id_employee.sendKeys(String.valueOf(id));
+
     }
 
     public void input_add_admin() {
@@ -225,21 +232,11 @@ public class Xpath_InputData extends ElementVisible {
     }
 
     public void addEmployee() throws InterruptedException {
-        isElementVisible(PIM);
-        PIM.click();
-
-        isElementVisible2(add_PIM_button);
-        add_PIM_button.click();
-
+        addEmployeeButton.click();
         input_add_employee();
-        id_employee.clear();
-        id_employee.sendKeys(String.valueOf(id));
-        Thread.sleep(3000);
-
-        isElementVisible2(saveAddEmployee_button);
         saveAddEmployee_button.click();
-
         checkNotification();
+        System.out.println();
     }
 
     public void create_newAdmin() {
@@ -247,7 +244,7 @@ public class Xpath_InputData extends ElementVisible {
         isElementVisible(admin_list);
         admin_list.click();
 
-        isElementVisible2(addAdmin_button);
+        isElementEnableToBeClick(addAdmin_button);
         addAdmin_button.click();
 
         isElementVisible(user_role);
@@ -265,23 +262,48 @@ public class Xpath_InputData extends ElementVisible {
         input_add_admin();
 
 
-        isElementVisible2(save_button);
+        isElementEnableToBeClick(save_button);
         save_button.click();
 
         checkNotification();
 
     }
 
-    public void inputEmployee() {
-        PIM.click();
-        employeeName_textbox.click();
-        employeeName_textbox.sendKeys(name);
+    public boolean checkTheEmployeeIsExist() {
+        if ( isElementVisible(employeeCard)){
+            System.out.println("employee is existed");
+            return true;
+        }else {
+            System.out.println("is not existed");
+            return false;
+        }
     }
+
+
+    public void navigateToPIMTab() {
+        System.out.println("navigate to PIM tab");
+        isElementVisible(PIM);
+        PIM.click();
+        System.out.println("navigate to PIM tab - success");
+    }
+    public void  deleteEmployee() throws InterruptedException {
+        System.out.println("Delete employee");
+        isElementVisible(deleteButton);
+        deleteButton.click();
+        confirmDeleteButton.click();
+        System.out.println();
+        Thread.sleep(2000);
+    }
+    public void  searchEmployee() throws InterruptedException {
+        System.out.println("search employee ");
+        isElementEnableToBeClick(employeeName_textbox);
+        employeeName_textbox.click();
+        employeeName_textbox.clear();
+        employeeName_textbox.sendKeys(name);
+        Thread.sleep(2000);
+        search_button.click();
+        Thread.sleep(5000);
+
+    }
+
 }
-
-   /* public void checkEmployee() throws InterruptedException {
-
-
-}*/
-
-

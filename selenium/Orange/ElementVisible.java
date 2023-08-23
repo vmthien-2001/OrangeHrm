@@ -11,7 +11,7 @@ public class ElementVisible {
         }
     }
 
-    public boolean isElementVisible2(WebElement element) {
+    public boolean isElementEnableToBeClick(WebElement element) {
         try {
             return element.isEnabled();
         } catch (Exception e) {

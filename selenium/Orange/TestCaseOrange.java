@@ -10,23 +10,27 @@ import org.testng.annotations.Test;
 public class TestCaseOrange extends Before_Affter {
     @Test
     public void tc1_add_employee() throws InterruptedException {
-        inputEmployee();
-        System.out.println("check that after entering the name, the name just entered is displayed");
-        try {
-            boolean check = driver.findElement(By.xpath("//span[text()='" + name + "']")).isDisplayed();
-            if (check) {
-                System.out.println("employee already exists");
-            }
-        } catch (NoSuchElementException e) {
+        navigateToPIMTab();
+        searchEmployee();
+        if (checkTheEmployeeIsExist()){
+            deleteEmployee();
             addEmployee();
-            System.out.println("done testcase 1");
+        }else {
+            addEmployee();
+        }
+        navigateToPIMTab();
+        searchEmployee();
+        if (checkTheEmployeeIsExist()){
+            System.out.println("create new employee success");
+        }else {
+            System.out.println("create new employee fail");
         }
     }
 
     @Test
     public void tc2_add_admin() throws InterruptedException {
         System.out.println("testcase 2");
-        inputEmployee();
+       // inputEmployee();
         System.out.println("check that after entering the name, the name just entered is displayed");
         try {
             boolean check = driver.findElement(By.xpath("//span[text()='" + name + "']")).isDisplayed();
@@ -45,34 +49,24 @@ public class TestCaseOrange extends Before_Affter {
     @Test
     public void tc3_post() throws InterruptedException {
         System.out.println("testcase 3");
-        System.out.println("check clicking to buzz list");
         isElementVisible(buzz_list);
         buzz_list.click();
-        System.out.println("buzz list is displayed");
 
-        System.out.println("clicking to input post");
         isElementVisible(input_post);
         input_post.sendKeys("new post 2");
-        System.out.println("input post is displayed");
 
-        System.out.println("check clicking to post button");
-        isElementVisible2(post_button);
+        isElementEnableToBeClick(post_button);
         post_button.click();
-        System.out.println("post button is displayed");
 
 
-        System.out.println("check clicking to like_post button");
         isElementVisible(like_post);
         like_post.click();
-        System.out.println("like post is displayed");
 
 
-        System.out.println("check clicking to comment post");
         isElementVisible(comment_post);
         comment_post.click();
         comment_post_textBox.sendKeys("good");
         comment_post_textBox.sendKeys(Keys.RETURN);
-        System.out.println("comment post is displayed");
 
         checkNotification();
         Thread.sleep(3000);
@@ -91,7 +85,7 @@ public class TestCaseOrange extends Before_Affter {
         isElementVisible(userName_textbox);
         userName_textbox.sendKeys(userName);
 
-        isElementVisible2(search_button);
+        isElementEnableToBeClick(search_button);
         search_button.click();
 
         System.out.println("check clicking to edit user");
