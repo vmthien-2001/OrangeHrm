@@ -1,5 +1,6 @@
 package Orange;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
@@ -18,9 +19,11 @@ public class TestCaseOrange extends Before_Affter {
         searchEmployee();
         if (checkTheUserIsExist()) {
             System.out.println("create new employee success");
+            deleteEmployee();
         }else {
             System.out.println("create new employee fail");
         }
+
     }
 
     @Test
@@ -39,6 +42,9 @@ public class TestCaseOrange extends Before_Affter {
         logout();
         isAdminUserCreated();
         System.out.println("verify User admin created -- success");
+        logout();login(userName_DF,pass_DF);
+        navigateToAdminTab();searchAdminUser();deleteUser();
+
     }
 
     @Test
@@ -51,7 +57,9 @@ public class TestCaseOrange extends Before_Affter {
             changePass();
         } else {
             System.out.println("the user is not existed, create user admin");
-            tc2_AddAdmin();
+            navigateToAdminTab();
+            searchAdminUser();
+            createAdminUser();
             navigateToAdminTab();
             searchAdminUser();
             editUser();
@@ -61,6 +69,8 @@ public class TestCaseOrange extends Before_Affter {
         logout();
         isUserChangedPasswordSuccess();
         System.out.println("verify User changed pass -- success");
+        logout();login(userName_DF,pass_DF);
+        navigateToAdminTab();searchAdminUser();deleteUser();
     }
 
     @Test
@@ -70,19 +80,15 @@ public class TestCaseOrange extends Before_Affter {
         if(checkTheUserIsExist())
         {
             System.out.println("Admin user is existed, will delete");
+            Thread.sleep(2000);
             deleteUser();
         }else{
             System.out.println("Admin user is not existed, create new user");
             createAdminUser();
-            /*System.out.println("verify User admin created -- start");
-            logout();
-            isAdminUserCreated();
-            System.out.println("verify User admin created -- success");
-            logout();
-            login(userName_DF,pass_DF);*/
             navigateToAdminTab();
             searchAdminUser();
-            checkTheUserIsExist();Thread.sleep(2000);
+            checkTheUserIsExist();
+            Thread.sleep(2000);
             deleteUser();
         }
         System.out.println("verify User delete -- start");

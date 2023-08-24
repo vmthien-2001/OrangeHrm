@@ -310,8 +310,8 @@ public class Xpath_InputData extends ElementVisible {
         System.out.println();
         Thread.sleep(2000);
     }
-    public void  editUser() {
-        System.out.println("Edit User ");
+    public void  editUser() throws InterruptedException {
+        System.out.println("Edit User ");Thread.sleep(2000);
         isElementEnableToBeClick(editButton);
         editButton.click();
 
