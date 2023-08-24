@@ -172,7 +172,7 @@ public class Xpath_InputData extends ElementVisible {
     WebElement userCard;
     @FindBy(xpath = "//i[contains(@class,'bi-trash')]")
     WebElement deleteButton;
-    @FindBy(xpath = "//button[contains(.,' Yes, Delete ')]")
+    @FindBy(xpath = "//button[text()=' Yes, Delete ']")
     WebElement confirmDeleteButton;
     @FindBy(xpath = "//i[contains(@class,'bi-pencil-fill')]")
     WebElement editButton;
@@ -270,7 +270,7 @@ public class Xpath_InputData extends ElementVisible {
 
     public boolean checkTheUserIsExist() {
         if ( isElementVisible(userCard)){
-            System.out.println("employee is existed");
+            System.out.println("user is existed");
             return true;
         }else {
             System.out.println("is not existed");
@@ -297,6 +297,7 @@ public class Xpath_InputData extends ElementVisible {
         System.out.println("Delete User");
         isElementVisible(deleteButton);
         deleteButton.click();
+        Thread.sleep(2000);
         confirmDeleteButton.click();
         System.out.println();
         Thread.sleep(2000);
@@ -309,7 +310,7 @@ public class Xpath_InputData extends ElementVisible {
         System.out.println();
         Thread.sleep(2000);
     }
-    public void  editUser() throws InterruptedException {
+    public void  editUser() {
         System.out.println("Edit User ");
         isElementEnableToBeClick(editButton);
         editButton.click();
@@ -345,7 +346,7 @@ public class Xpath_InputData extends ElementVisible {
         Thread.sleep(5000);
 
     }
-    public  void  checkEmployeeExist() throws InterruptedException {
+    public  void  createAdminUser() throws InterruptedException {
         navigateToPIMTab();
         searchEmployee();
         if (checkTheUserIsExist()) {

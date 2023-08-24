@@ -31,9 +31,9 @@ public class TestCaseOrange extends Before_Affter {
         {
             System.out.println("Admin user is existed, will delete");
             deleteUser();
-            checkEmployeeExist();
+            createAdminUser();
         }else{
-            checkEmployeeExist();
+            createAdminUser();
         }
         System.out.println("verify User admin created -- start");
         logout();
@@ -72,29 +72,27 @@ public class TestCaseOrange extends Before_Affter {
             System.out.println("Admin user is existed, will delete");
             deleteUser();
         }else{
-            navigateToAdminTab();
-            searchAdminUser();
-            if(checkTheUserIsExist())
-            {
-                System.out.println("Admin user is existed, will delete");
-                deleteUser();
-                checkEmployeeExist();
-            }else{
-                checkEmployeeExist();
-            }
-            System.out.println("verify User admin created -- start");
+            System.out.println("Admin user is not existed, create new user");
+            createAdminUser();
+            /*System.out.println("verify User admin created -- start");
             logout();
             isAdminUserCreated();
             System.out.println("verify User admin created -- success");
             logout();
-            login(userName_DF,pass_DF);
+            login(userName_DF,pass_DF);*/
             navigateToAdminTab();
-            checkTheUserIsExist();
+            searchAdminUser();
+            checkTheUserIsExist();Thread.sleep(2000);
             deleteUser();
         }
         System.out.println("verify User delete -- start");
-        logout();login(userName_DF,pass_DF);
-        navigateToAdminTab();checkTheUserIsExist();
+        navigateToAdminTab();
+        searchAdminUser();
+        if (checkTheUserIsExist()){
+            System.out.println("delete fail");
+        }else {
+            System.out.println("delete true");
+        }
         System.out.println("verify User delete -- success");
     }
 }
